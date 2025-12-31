@@ -5,6 +5,8 @@ from selenium.webdriver.common.by import By
 from webdriver_manager.chrome import ChromeDriverManager
 import time
 import random
+import requests
+import pandas as pd
 
 chrome_options = Options()
 user_agent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
@@ -22,43 +24,44 @@ data = []
 gallery_id = 'programming'
 
 #글 번호(존재해야 에러가 나지 않음)
-start_no = 2526000
-end_no = 2526005
+start_page = 1
+end_page = 10
 
 try:
-    for no in range(start_no, end_no + 1):
-        url = f"https://gall.dcinside.com/board/view/?id={gallery_id}&no={no}"
+    for page in range(start_page, end_page + 1):
+        url = f"https://gall.dcinside.com/board/lists/?id={gallery_id}&page={page}"
 
         try:
-            print(f"\n▶ {no}번 글 이동 중...")
+            print(f"\n▶ {page} 쪽 이동 중...")
             driver.get(url)
 
             time.sleep(random.uniform(2, 3))
 
-            # [삭제된 글 감지] 제목 요소가 없으면 삭제된 글일 확률이 높음
-            try:
-                # 제목 찾기
-                title_element = driver.find_element(By.CSS_SELECTOR, '.title_subject')
-                # 본문 찾기
-                content_element = driver.find_element(By.CSS_SELECTOR, '.write_div')
-            except:
-                print("   ❌ 삭제되었거나 존재하지 않는 글입니다.")
+            rows = driver.find_elements(By.CSS_SELECTOR, '.ub-content.us-post')
+
+            if not rows:
+                print("   ⚠️ 글을 찾을 수 없습니다. (차단되었거나 없는 페이지)")
                 continue
 
-            # 데이터 추출 (.text 필수)
-            post = {
-                'no': no,
-                'title': title_element.text,
-                'content': content_element.text,
-                'url': url
-            }
+            for row in rows:
+                try:
+                    title_element = row.find_element(By.CSS_SELECTOR, '.gall_tit > a')
+                    view_element = row.find_element(By.CSS_SELECTOR, '.gall_count')
 
-            data.append(post)
-            print(f"   ✅ 수집 성공: {post['title'][:10]}...")  # 제목 앞부분만 출력
+                    post = {
+                        'title': title_element.text.strip(),
+                        'views': view_element.text.strip()
+                    }
+                    data.append(post)
+
+                except Exception:
+                    continue  # 광고나 공지사항 등 구조가 다르면 패스
+
+            print(f"   ✅ {page}페이지 수집 완료 (현재 누적 {len(data)}개)")
 
         except Exception as e:
-            print(f"   ⚠️ 개별 글 수집 중 에러: {e}")
-            continue
+            print(f"   ⚠️ 페이지 접속 에러: {e}")
+        continue
 
 except KeyboardInterrupt:
     print("\n강제 종료됨!")
@@ -70,3 +73,12 @@ finally:
     print(data)  # 리스트[딕셔너리] 형태 출력
 
     driver.quit()
+
+df = pd.DataFrame(data)
+
+#조회수를 숫자로 변경, '-'따위의 문자는 0으로 처리
+df['views'] = pd.to_numeric(df['views'].str.replace(',',''), errors='coerce').fillna(0).astype(int)
+
+df.to_csv('titiles_and_views.csv', index=False, encoding='utf-8')
+
+print(df.head())
