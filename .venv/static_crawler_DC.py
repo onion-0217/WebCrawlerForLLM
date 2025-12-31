@@ -76,4 +76,4 @@ for page in range(start_page, end_page + 1):
         print(f"\n⏳ {wait_time:.1f}초 대기 후 다음 페이지로 이동합니다...")
         time.sleep(wait_time)
 
-print("\n✅ 모든 수집이 완료되었습니다.")
+print("\n✅ 모든 수집이 완료되었습니다!")
