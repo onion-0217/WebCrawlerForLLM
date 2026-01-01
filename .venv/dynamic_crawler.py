@@ -21,11 +21,11 @@ driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # 데이터 저장소
 data = []
-gallery_id = 'programming'
+gallery_id = 'leagueoflegends6'
 
 #글 번호(존재해야 에러가 나지 않음)
 start_page = 1
-end_page = 10
+end_page = 2000
 
 try:
     for page in range(start_page, end_page + 1):
