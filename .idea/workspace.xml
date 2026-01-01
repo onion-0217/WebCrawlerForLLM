@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1c9f228a-1171-478f-a823-74a0d766f5aa" name="변경" comment="동적 환경에서의 크롤러 제작 / 직접 웹 브라우저를 띄워 확인하는 방식으로 static크롤러와의 차별점 있음">
+    <list default="true" id="1c9f228a-1171-478f-a823-74a0d766f5aa" name="변경" comment="디시인사이트 리그오브레전드 갤러리 1~2000page 제목과 조회수 조사">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.venv/dynamic_crawler.py" beforeDir="false" afterPath="$PROJECT_DIR$/.venv/dynamic_crawler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,6 +52,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "Python.Machine Learning.executor": "Run",
     "Python.dynamic_crawler.executor": "Run",
     "Python.static_crawler.executor": "Run",
     "Python.static_crawler_DC.executor": "Debug",
@@ -125,7 +125,23 @@
       <option name="project" value="LOCAL" />
       <updated>1767164176406</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="제목과 조회수간 상관관계를 따지기 위한 데이터 크롤러">
+      <option name="closed" value="true" />
+      <created>1767166572097</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1767166572097</updated>
+    </task>
+    <task id="LOCAL-00008" summary="디시인사이트 리그오브레전드 갤러리 1~2000page 제목과 조회수 조사">
+      <option name="closed" value="true" />
+      <created>1767248999375</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1767248999375</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -142,6 +158,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="첫 코드 업로드" />
     <MESSAGE value="동적 환경에서의 크롤러 제작 / 직접 웹 브라우저를 띄워 확인하는 방식으로 static크롤러와의 차별점 있음" />
-    <option name="LAST_COMMIT_MESSAGE" value="동적 환경에서의 크롤러 제작 / 직접 웹 브라우저를 띄워 확인하는 방식으로 static크롤러와의 차별점 있음" />
+    <MESSAGE value="제목과 조회수간 상관관계를 따지기 위한 데이터 크롤러" />
+    <MESSAGE value="디시인사이트 리그오브레전드 갤러리 1~2000page 제목과 조회수 조사" />
+    <option name="LAST_COMMIT_MESSAGE" value="디시인사이트 리그오브레전드 갤러리 1~2000page 제목과 조회수 조사" />
   </component>
 </project>
