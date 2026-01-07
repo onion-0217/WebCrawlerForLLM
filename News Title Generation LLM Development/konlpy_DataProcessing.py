@@ -53,14 +53,18 @@ for i, file_path in enumerate(all_files):
                 clean_title = re.sub(r'\[.*?\]|\(.*?\)|\<.*?\>', '', raw_title)
                 clean_title = clean_title.strip()
 
-                # [Okt 모듈] 명사 추출
+                # 1. 명사 추출
                 nouns = okt.nouns(clean_title)
 
-                if not nouns:
+                # 2. 한 글자 제거 (필터링)
+                filtered_nouns = [n for n in nouns if len(n) > 1]
+
+                # 3. 필터링된 결과가 비어있으면 건너뛰기
+                if not filtered_nouns:
                     continue
 
-                # [키워드 선정] 최대 3개
-                keywords = ", ".join(nouns[:3])
+                # 4. 키워드 조합 (필터링된 명사 사용)
+                keywords = ", ".join(filtered_nouns[:3])
 
                 # [학습 데이터 포맷]
                 formatted_text = f"[{press}] {keywords}: {clean_title} </s>"
