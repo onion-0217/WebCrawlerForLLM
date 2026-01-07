@@ -7,7 +7,7 @@ import random
 import os
 
 # ==============================================================================
-# [1] 설정 영역 (원하는 날짜로 수정하세요)
+# [1] 설정 영역
 # ==============================================================================
 START_DATE = "20220101"  # 수집 시작 날짜
 END_DATE = "20251231"  # 수집 종료 날짜
@@ -66,7 +66,7 @@ for idx, target_date in enumerate(date_list):
         soup = BeautifulSoup(response.text, 'html.parser')
 
         # ----------------------------------------------------------------------
-        # [4] 데이터 파싱 (여기가 수정된 핵심 부분입니다)
+        # [4] 데이터 파싱
         # ----------------------------------------------------------------------
         press_boxes = soup.select('.rankingnews_box')
         daily_count = 0
@@ -76,11 +76,11 @@ for idx, target_date in enumerate(date_list):
                 # 언론사 이름
                 press_name = box.select_one('.rankingnews_name').text.strip()
 
-                # 기사 리스트 (수정됨: .rankingnews_list)
+                # 기사 리스트
                 ranks = box.select('.rankingnews_list > li')
 
                 for rank_idx, li in enumerate(ranks):
-                    # 제목 태그 찾기 (우선 .list_title 시도 -> 없으면 a 태그)
+                    # 제목 태그 찾기
                     title_tag = li.select_one('.list_title')
                     if not title_tag:
                         title_tag = li.select_one('a')
@@ -98,11 +98,11 @@ for idx, target_date in enumerate(date_list):
                         })
                         daily_count += 1
             except Exception as e:
-                continue  # 특정 기사 파싱 에러는 무시하고 계속 진행
+                continue 
 
         total_collected += daily_count
 
-        # 진행 상황 출력 (Referer 뒷부분만 보여줌)
+        # 진행 상황 출력
         print(f"   ✅ {target_date} (Ref: ...{previous_url[-15:]}): {daily_count}개 수집")
 
         # ----------------------------------------------------------------------
